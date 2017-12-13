@@ -29,7 +29,7 @@
 
 # ## Initialize
 
-# In[2]:
+# In[1]:
 
 
 # adicionado na versão de 11_2017
@@ -43,10 +43,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
+from pivottablejs import pivot_ui
 get_ipython().magic('matplotlib inline')
 
 
-# In[3]:
+# In[2]:
 
 
 # Setting working directory
@@ -56,7 +57,7 @@ path = '../MOZAIC/'
 
 # ## Loading Files
 
-# In[4]:
+# In[3]:
 
 
 # read the data from csv
@@ -65,10 +66,18 @@ df = pd.read_csv('HR_comma_sep.csv')
 
 # # Data Overview
 
-# In[5]:
+# In[4]:
 
 
 df.describe()
+
+
+# In[5]:
+
+
+# open pivot table from dataframe
+
+pivot_ui(df)
 
 
 # In[6]:
@@ -86,6 +95,15 @@ df.dtypes
 # Return the missing values in dataframe
 print("Número de missing values no Dataframe")
 df.isnull().values.any()
+
+
+# In[ ]:
+
+
+var = ['Gender','Salary_Account','Mobile_Verified','Var1','Filled_Form','Device_Type','Var2','Source']
+for v in var:
+    print '\nFrequency count for variable %s'%v
+    print data[v].value_counts()
 
 
 # In[7]:
@@ -537,6 +555,16 @@ X.columns
 # # Handling categorical data 
 
 # ## Label Encoder
+
+# In[ ]:
+
+
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+var_to_encode = ['Device_Type','Filled_Form','Gender','Var1','Var2','Mobile_Verified','Source']
+for col in var_to_encode:
+    data[col] = le.fit_transform(data[col])
+
 
 # In[ ]:
 
